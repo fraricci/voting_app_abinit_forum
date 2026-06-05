@@ -13,7 +13,7 @@ st.title("LLM vs RAG")
 st.header("Pick the answer you prefer.")
 st.write("Vote the answer and another one will be loaded automatically at random. Skip the question if you do not want to vote (e.g. not familiar with the topic of the question)")
 st.write("Vote how many answers you want.")
-st.write("Notes: It is completely anonymous. You cannot go back to the voted questions for corrections. Also, since questions are shown at random, the same question can be shown more time.")
+st.write("Notes: It is completely anonymous. You cannot go back to the voted questions for corrections. Also, since questions are shown at random and we are not tracking who's voting what, the same question can be shown multiple times.")
 
 
 # Function to load next question

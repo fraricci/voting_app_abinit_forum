@@ -71,3 +71,9 @@ def record_vote(question_id, winner_id, loser_id):
         "loser_answer_id": loser_id,
         "timestamp": datetime.now()
     })
+
+def validate_vote(question_id, winner_id, loser_id):
+    db = get_db()
+    winner_exists = db[COLLECTION_A].count_documents({"_id": winner_id}) > 0
+    loser_exists = db[COLLECTION_A].count_documents({"_id": loser_id}) > 0
+    return winner_exists and loser_exists

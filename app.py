@@ -41,10 +41,17 @@ for i, ans in enumerate(answers):
             # Determine winner/loser
             winner_id = ans["_id"]
             loser_id = answers[1-i]["_id"]
-            database.record_vote(q_id, winner_id, loser_id)
-            st.success("Vote recorded!")
-            load_next_question()
-            st.rerun()
+            
+            # Verify IDs exist in DB before recording
+            if database.validate_vote(q_id, winner_id, loser_id):
+                database.record_vote(q_id, winner_id, loser_id)
+                st.success("Vote recorded!")
+                load_next_question()
+                st.rerun()
+            else:
+                st.error("Invalid vote data. Reloading question.")
+                load_next_question()
+                st.rerun()
 
 if st.button("Skip Question"):
     load_next_question()

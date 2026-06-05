@@ -10,7 +10,11 @@ ANS2_FILE = "qa_data/llm_flash_latest_ans_sample_100.pkl"
 database.ingest_data(QA_FILE, ANS1_FILE, ANS2_FILE)
 
 st.title("LLM vs RAG")
-st.header("Pick the answer you prefer.")
+st.header("Pick the answer you prefer. It is completely anonymous")
+st.write("Vote the answer and another one will be loaded automatically at random. Skip the question if you do not want to vote (e.g. not familiar with the topic of the question)")
+st.write("Vote how many answers you want.")
+st.write("Note: you cannot go back to the voted questions for corrections. Also, since questions are shown at random, the same question can be shown more time.")
+
 
 # Function to load next question
 def load_next_question():

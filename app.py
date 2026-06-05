@@ -9,7 +9,8 @@ ANS2_FILE = "qa_data/llm_flash_latest_ans_sample_100.pkl"
 # Initialize database
 database.ingest_data(QA_FILE, ANS1_FILE, ANS2_FILE)
 
-st.title("Pairwise Voting App")
+st.title("LLM vs RAG")
+st.subtitle("Pick the answer you prefer.")
 
 # Function to load next question
 def load_next_question():

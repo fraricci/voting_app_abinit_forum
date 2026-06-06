@@ -15,9 +15,10 @@ st.title("LLM vs RAG")
 st.markdown(
     """
     <style>
-    .stTextArea textarea {
+    div[data-baseweb="textarea"] textarea {
         background-color: white !important;
         color: black !important;
+        -webkit-text-fill-color: black !important;
     }
     </style>
     """,

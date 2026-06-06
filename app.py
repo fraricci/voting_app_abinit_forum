@@ -10,9 +10,9 @@ ANS2_FILE = "qa_data/llm_flash_latest_ans_sample_100.pkl"
 database.ingest_data(QA_FILE, ANS1_FILE, ANS2_FILE)
 
 st.title("LLM vs RAG")
-st.header("Rate the answer you prefer with Up.")
-st.header("If you identify some errors or the answer is measleding use the Down rate.")
-st.header("If both answers are correct/valid, rate both of them with Up")
+st.write("Rate the answer you prefer with Up.")
+st.write("If you identify some errors or the answer is measleding use the Down rate.")
+st.write("If both answers are correct/valid, rate both of them with Up")
 
 st.write("Please, focus on the content of the answer more than on the style.")
 st.write("Confirming the vote will pull another question automatically at random. Skip the question if you do not want to vote (e.g. not familiar with the topic of the question.)")

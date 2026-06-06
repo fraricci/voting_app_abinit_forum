@@ -63,7 +63,6 @@ for i, ans in enumerate(answers):
     ans_text = ans["text"]
     
     with cols[i]:
-        st.subheader(f"Answer {i+1}")
         st.text_area(f"Answer {i+1}", value=ans_text, height=300, key=f"text_{ans_id}", disabled=True)
         
         # Radio button for Up/Down

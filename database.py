@@ -34,10 +34,17 @@ def ingest_data(question_file, answers_file1, answers_file2):
         
     def extract_text(content):
         if isinstance(content, str):
-            return content
+            text = content
         elif isinstance(content, list):
-            return "".join([part.get('text', '') for part in content if isinstance(part, dict)])
-        return str(content)
+            text = "".join([part.get('text', '') for part in content if isinstance(part, dict)])
+        else:
+            text = str(content)
+        
+        # Remove source section if it exists
+        marker = "---\n**Sources:**\n"
+        if marker in text:
+            text = text.split(marker)[0]
+        return text.strip()
 
     ans1_texts = [extract_text(item[-1][0].content) for item in answers1]
     ans2_texts = [extract_text(item.content) for item in answers2]

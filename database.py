@@ -63,17 +63,13 @@ def get_random_question_pair():
     
     return q["_id"], q["text"], answers
 
-def record_vote(question_id, winner_id, loser_id):
+def record_vote(question_id, votes):
+    """
+    votes: dict mapping answer_id -> 'Up' or 'Down'
+    """
     db = get_db()
     db[COLLECTION_V].insert_one({
         "question_id": question_id,
-        "winner_answer_id": winner_id,
-        "loser_answer_id": loser_id,
+        "votes": votes,
         "timestamp": datetime.now()
     })
-
-def validate_vote(question_id, winner_id, loser_id):
-    db = get_db()
-    winner_exists = db[COLLECTION_A].count_documents({"_id": winner_id}) > 0
-    loser_exists = db[COLLECTION_A].count_documents({"_id": loser_id}) > 0
-    return winner_exists and loser_exists

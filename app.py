@@ -10,10 +10,13 @@ ANS2_FILE = "qa_data/llm_flash_latest_ans_sample_100.pkl"
 database.ingest_data(QA_FILE, ANS1_FILE, ANS2_FILE)
 
 st.title("LLM vs RAG")
-st.header("Pick the answer you prefer.")
+st.header("Rate the answer you prefer with Up.")
+st.header("If you identify some errors or the answer is measleding use the Down rate.")
+st.header("If both answers are correct/valid, rate both of them with Up")
+
 st.write("Please, focus on the content of the answer more than on the style.")
-st.write("Vote the answer and another one will be loaded automatically at random. Skip the question if you do not want to vote (e.g. not familiar with the topic of the question.)")
-st.write("Vote how many answers you want.")
+st.write("Confirming the vote will pull another question automatically at random. Skip the question if you do not want to vote (e.g. not familiar with the topic of the question.)")
+st.write("Rate how many answers you want.")
 st.write("Notes: It is completely anonymous. You cannot go back to the voted questions for corrections. Also, since questions are shown at random and we are not tracking who's voting what, the same question can be shown multiple times.")
 st.write("Dataset: 100 questions randomly selected from the old Abinit forum.")
 
@@ -34,6 +37,10 @@ st.write(q_text)
 
 cols = st.columns(2)
 
+# Store votes in session state
+if 'vote_selections' not in st.session_state:
+    st.session_state.vote_selections = {}
+
 # Display answers and voting buttons
 for i, ans in enumerate(answers):
     # MongoDB returns _id (ObjectId), so convert to str for key
@@ -43,22 +50,39 @@ for i, ans in enumerate(answers):
     with cols[i]:
         st.subheader(f"Answer {i+1}")
         st.text_area(f"Answer {i+1}", value=ans_text, height=300, key=f"text_{ans_id}", disabled=True)
-        if st.button(f"Vote for Answer {i+1}", key=f"vote_{ans_id}"):
-            # Determine winner/loser
-            winner_id = ans["_id"]
-            loser_id = answers[1-i]["_id"]
-            
-            # Verify IDs exist in DB before recording
-            if database.validate_vote(q_id, winner_id, loser_id):
-                database.record_vote(q_id, winner_id, loser_id)
-                st.success("Vote recorded!")
-                load_next_question()
-                st.rerun()
-            else:
-                st.error("Invalid vote data. Reloading question.")
-                load_next_question()
-                st.rerun()
+        
+        # Radio button for Up/Down
+        # Use a list of options that starts with a blank or 'None' option to allow unselected.
+        # But user wants to remove "Select". I can use None as a default, 
+        # and hide it if possible, or use a custom format_func.
+        
+        # To remove 'Select', use an empty option for "No rating"
+        options = [None, "Up", "Down"]
+        
+        selection = st.radio(
+            f"Rate Answer {i+1}:",
+            options=options,
+            format_func=lambda x: "No rating" if x is None else x,
+            key=f"radio_{ans_id}"
+        )
+        st.session_state.vote_selections[ans_id] = selection
+
+if st.button("Confirm Vote"):
+    # Allow partial votes: at least one answer must have an 'Up' or 'Down'
+    votes_to_save = {ans_id: selection for ans_id, selection in st.session_state.vote_selections.items() if selection is not None}
+    
+    if not votes_to_save:
+        st.error("Please rate at least one answer before confirming.")
+    else:
+        # Save votes
+        database.record_vote(q_id, votes_to_save)
+        st.success("Votes recorded!")
+        # Clear selections and load next
+        st.session_state.vote_selections = {}
+        load_next_question()
+        st.rerun()
 
 if st.button("Skip Question"):
+    st.session_state.vote_selections = {}
     load_next_question()
     st.rerun()

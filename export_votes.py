@@ -1,12 +1,8 @@
 import csv
 import os
 from pymongo import MongoClient
-import streamlit as st
-
-# We need to load the MONGO_URI from the same location the app does.
-# Since this is a standalone script, we can load it from the secrets file directly.
-# A simple way for a script is to parse the .streamlit/secrets.toml file.
 import toml
+from bson import ObjectId
 
 def get_mongo_uri():
     secrets_path = ".streamlit/secrets.toml"
@@ -33,37 +29,65 @@ def export_votes_to_csv():
     
     votes = list(votes_col.find())
     
-    rag_wins = 0
-    llm_wins = 0
+    rag_up = 0
+    rag_down = 0
+    llm_up = 0
+    llm_down = 0
+    both_up = 0
     
     with open(OUTPUT_CSV, 'w', newline='', encoding='utf-8') as f:
         writer = csv.writer(f)
-        writer.writerow(['Vote ID', 'Question', 'Winner Answer', 'Loser Answer', 'Timestamp', 'Winner Type'])
+        writer.writerow(['Vote ID', 'Question', 'Answer 1 (Type)', 'Vote 1', 'Answer 2 (Type)', 'Vote 2', 'Timestamp'])
         
         for vote in votes:
             q = questions_col.find_one({"_id": vote["question_id"]})
-            a_winner = answers_col.find_one({"_id": vote["winner_answer_id"]})
-            a_loser = answers_col.find_one({"_id": vote["loser_answer_id"]})
+            q_text = q["text"] if q else "N/A"
             
-            winner_type = a_winner.get("type", "Unknown") if a_winner else "N/A"
-            if winner_type == "RAG":
-                rag_wins += 1
-            elif winner_type == "LLM":
-                llm_wins += 1
+            vote_dict = vote.get("votes", {})
+            ans_ids = list(vote_dict.keys())
+            
+            # Map answers to types
+            ratings = []
+            for ans_id in ans_ids:
+                a = answers_col.find_one({"_id": ObjectId(ans_id)})
+                if a:
+                    ratings.append({"type": a.get("type"), "vote": vote_dict[ans_id]})
+            
+            # Count metrics
+            is_both_up = True
+            for r in ratings:
+                if r["type"] == "RAG":
+                    if r["vote"] == "Up": rag_up += 1
+                    else: rag_down += 1
+                elif r["type"] == "LLM":
+                    if r["vote"] == "Up": llm_up += 1
+                    else: llm_down += 1
+                
+                if r["vote"] != "Up":
+                    is_both_up = False
+            
+            if len(ratings) == 2 and is_both_up:
+                both_up += 1
             
             writer.writerow([
                 str(vote["_id"]),
-                q["text"] if q else "N/A",
-                a_winner["text"] if a_winner else "N/A",
-                a_loser["text"] if a_loser else "N/A",
-                vote["timestamp"].strftime("%Y-%m-%d %H:%M:%S"),
-                winner_type
+                q_text,
+                ratings[0]["type"] if len(ratings) > 0 else "N/A",
+                ratings[0]["vote"] if len(ratings) > 0 else "N/A",
+                ratings[1]["type"] if len(ratings) > 1 else "N/A",
+                ratings[1]["vote"] if len(ratings) > 1 else "N/A",
+                vote["timestamp"].strftime("%Y-%m-%d %H:%M:%S")
             ])
         
     client.close()
     print(f"Successfully exported {len(votes)} votes to {OUTPUT_CSV}")
-    print(f"Total RAG wins: {rag_wins}")
-    print(f"Total LLM wins: {llm_wins}")
+    print("-" * 30)
+    print(f"Stats:")
+    print(f"  RAG Up:   {rag_up}")
+    print(f"  RAG Down: {rag_down}")
+    print(f"  LLM Up:   {llm_up}")
+    print(f"  LLM Down: {llm_down}")
+    print(f"  Cases with Both Up: {both_up}")
 
 if __name__ == "__main__":
     export_votes_to_csv()

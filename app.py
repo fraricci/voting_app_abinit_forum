@@ -57,7 +57,7 @@ for i, ans in enumerate(answers):
         # and hide it if possible, or use a custom format_func.
         
         # To remove 'Select', use an empty option for "No rating"
-        options = [None, "Up", "Down"]
+        options = [None, "Up (Good/Correct/Prefer)", "Down (Error/Misleading/Incomplete)"]
         
         selection = st.radio(
             f"Rate Answer {i+1}:",

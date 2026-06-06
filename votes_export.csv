@@ -1,6 +1,1 @@
 Vote ID,Question,Answer 1 (Type),Vote 1,Answer 2 (Type),Vote 2,Timestamp
-6a23cef0c2c5305007ed149e,"Why does the repfn calculation crash because ngfftdg doesn't match, and how can I avoid having to manually set ngfftdg from the ground‑state output?",RAG,Up,N/A,N/A,2026-06-06 09:40:32
-6a23cef7c2c5305007ed149f,Is spin-orbit coupling implemented with exact exchange in ABINIT?,LLM,Up,N/A,N/A,2026-06-06 09:40:39
-6a23cefdc2c5305007ed14a0,"Where are the utilities after installation? I cannot find the utilities after installing 7.4.3. Where are they? Also, is it serious that Abinit does not have any post-processing tool anymore to plot band structure?",RAG,Down,LLM,Up,2026-06-06 09:40:45
-6a23cf01c2c5305007ed14a1,Is there a way to vary temperature in GS calculations?,RAG,Down,LLM,Down,2026-06-06 09:40:49
-6a23cf05c2c5305007ed14a2,"I tried to perform self-consistent GW (scgw) calculation using optdriver:8 under abinit-7.6.4 and got an error that optdriver:8 is not allowed. Is optdriver:8 disabled in 7.6.4, and if so, how can I still perform scgw in ABINIT?",RAG,Up,LLM,Up,2026-06-06 09:40:53

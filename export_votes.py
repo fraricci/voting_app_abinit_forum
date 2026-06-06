@@ -50,8 +50,12 @@ def export_votes_to_csv():
             ratings = []
             for ans_id in ans_ids:
                 a = answers_col.find_one({"_id": ObjectId(ans_id)})
+                # Map long label back to 'Up' or 'Down'
+                raw_vote = vote_dict[ans_id]
+                vote_val = "Up" if "Up" in raw_vote else ("Down" if "Down" in raw_vote else "Unknown")
+                
                 if a:
-                    ratings.append({"type": a.get("type"), "vote": vote_dict[ans_id]})
+                    ratings.append({"type": a.get("type"), "vote": vote_val})
             
             # Count metrics
             is_both_up = True

@@ -10,6 +10,20 @@ ANS2_FILE = "qa_data/llm_flash_latest_ans_sample_100.pkl"
 database.ingest_data(QA_FILE, ANS1_FILE, ANS2_FILE)
 
 st.title("LLM vs RAG")
+
+# Custom CSS to set text area background to white
+st.markdown(
+    """
+    <style>
+    .stTextArea textarea {
+        background-color: white !important;
+        color: black !important;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
 st.write("Rate the answer you prefer with Up.")
 st.write("If you identify some errors or the answer is measleding use the Down rate.")
 st.write("If both answers are correct/valid, rate both of them with Up")

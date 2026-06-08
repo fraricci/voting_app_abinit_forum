@@ -25,15 +25,18 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-st.write("Rate the answer you prefer with Up.")
-st.write("If you identify some errors or the answer is measleding use the Down rate.")
-st.write("If both answers are correct/valid, rate both of them with Up")
+st.write("Please, read the following info before starting. You can fold this section if you do not need it.")
 
-st.write("Please, focus on the content of the answer more than on the style.")
-st.write("Confirming the vote will pull another question automatically at random. Skip the question if you do not want to vote (e.g. not familiar with the topic of the question, already rated question,...)")
-st.write("Rate how many answers you want.")
-st.write("Notes: It is completely anonymous. You cannot go back to the voted questions for corrections. Also, since questions are shown at random and we are not tracking who's voting what, the same question can be shown multiple times.")
-st.write("Dataset: 100 questions randomly selected from the old Abinit forum.")
+with st.expander("Help / Info", expanded=True):
+    st.write("Rate the answer you prefer with Up.")
+    st.write("If you identify some errors or the answer is measleding use the Down rate.")
+    st.write("If both answers are correct/valid, rate both of them with Up")
+    st.write("Please, focus on the content of the answer more than on the style.")
+    st.write("Confirming the vote will pull another question automatically at random. Skip the question if you do not want to vote (e.g. not familiar with the topic of the question, already rated question,...)")
+    st.write("Rate how many answers you want.")
+    st.write("Notes: It is completely anonymous. You cannot go back to the voted questions for corrections. Also, since questions are shown at random and we are not tracking who's voting what, the same question can be shown multiple times.")
+    st.write("Dataset: 100 questions randomly selected from the old Abinit forum.")
+
 
 # Function to load next question
 def load_next_question():

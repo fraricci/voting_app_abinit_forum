@@ -7,7 +7,7 @@ ANS1_FILE = "qa_data/rag_ans_sample_100_reranker_larger_kb.pkl"
 ANS2_FILE = "qa_data/llm_flash_latest_ans_sample_100.pkl"
 
 # Initialize database
-database.ingest_data(QA_FILE, ANS1_FILE, ANS2_FILE)
+# database.ingest_data(QA_FILE, ANS1_FILE, ANS2_FILE)
 
 st.title("LLM vs RAG")
 

@@ -29,19 +29,26 @@ def export_votes_to_csv():
     
     votes = list(votes_col.find())
     
+    # Get questions sorted the same way as in analysis_app.py
+    questions = list(questions_col.find().sort("text", 1))
+    q_map = {q["_id"]: f"Q{i+1}" for i, q in enumerate(questions)}
+    
     rag_up = 0
     rag_down = 0
     llm_up = 0
     llm_down = 0
     both_up = 0
+    both_down = 0
     
     with open(OUTPUT_CSV, 'w', newline='', encoding='utf-8') as f:
         writer = csv.writer(f)
-        writer.writerow(['Vote ID', 'Question', 'Answer 1 (Type)', 'Vote 1', 'Answer 2 (Type)', 'Vote 2', 'Timestamp'])
+        writer.writerow(['Vote ID', 'Question Index', 'Question', 'Answer 1 (Type)', 'Vote 1', 'Answer 2 (Type)', 'Vote 2', 'Timestamp'])
         
         for vote in votes:
-            q = questions_col.find_one({"_id": vote["question_id"]})
+            q_id = vote["question_id"]
+            q = questions_col.find_one({"_id": q_id})
             q_text = q["text"] if q else "N/A"
+            q_idx = q_map.get(q_id, "N/A")
             
             vote_dict = vote.get("votes", {})
             ans_ids = list(vote_dict.keys())
@@ -59,6 +66,7 @@ def export_votes_to_csv():
             
             # Count metrics
             is_both_up = True
+            is_both_down = True
             for r in ratings:
                 if r["type"] == "RAG":
                     if r["vote"] == "Up": rag_up += 1
@@ -69,12 +77,18 @@ def export_votes_to_csv():
                 
                 if r["vote"] != "Up":
                     is_both_up = False
+                if r["vote"] != "Down":
+                    is_both_down = False
             
-            if len(ratings) == 2 and is_both_up:
-                both_up += 1
+            if len(ratings) == 2:
+                if is_both_up:
+                    both_up += 1
+                if is_both_down:
+                    both_down += 1
             
             writer.writerow([
                 str(vote["_id"]),
+                q_idx,
                 q_text,
                 ratings[0]["type"] if len(ratings) > 0 else "N/A",
                 ratings[0]["vote"] if len(ratings) > 0 else "N/A",
@@ -92,6 +106,7 @@ def export_votes_to_csv():
     print(f"  LLM Up:   {llm_up}")
     print(f"  LLM Down: {llm_down}")
     print(f"  Cases with Both Up: {both_up}")
+    print(f"  Cases with Both Down: {both_down}")
 
 if __name__ == "__main__":
     export_votes_to_csv()

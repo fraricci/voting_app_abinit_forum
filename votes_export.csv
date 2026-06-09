@@ -130,3 +130,9 @@ Vote ID,Question Index,Question,Answer 1 (Type),Vote 1,Answer 2 (Type),Vote 2,Ti
 6a286e9cd31c3af18fb20142,Q53,"I tried to perform self-consistent GW (scgw) calculation using optdriver:8 under abinit-7.6.4 and got an error that optdriver:8 is not allowed. Is optdriver:8 disabled in 7.6.4, and if so, how can I still perform scgw in ABINIT?",RAG,Up,LLM,Up,2026-06-09 19:50:52
 6a286f20d31c3af18fb20143,Q81,"Why does ABINIT crash with nspinor=2 when using libxc with PAW datasets, and how can I fix it?",RAG,Up,LLM,Up,2026-06-09 19:53:04
 6a286fd4d31c3af18fb20144,Q12,"Could you tell us, how to fix this line?",RAG,Up,LLM,Up,2026-06-09 19:56:04
+6a288083d31c3af18fb20145,Q85,"Why does ABINIT report 'The symmetry operation number 5 does not preserve vector lengths and angles' when I provide my own symrel matrices, and how can I fix it?",RAG,Up,LLM,Up,2026-06-09 21:07:15
+6a2880dad31c3af18fb20146,Q22,"How can I fix the error ""Fortran open returned iostat 29 while opening: tbs_2i_WFK"" when running the BSE tutorial input file tbs_2.in?",RAG,Up,LLM,Up,2026-06-09 21:08:42
+6a28814fd31c3af18fb20147,Q76,Why can't I download default plug‑ins during ABINIT configuration on Fedora 12/13?,RAG,Down,LLM,Up,2026-06-09 21:10:39
+6a28821ed31c3af18fb20148,Q68,What does the chksymbreak warning mean and how can I resolve it?,RAG,Up,N/A,N/A,2026-06-09 21:14:06
+6a288225d31c3af18fb20149,Q94,"Why does the SCF cycle become erratic for wide decorated graphene ribbons, and how can I fix it?",LLM,Up,N/A,N/A,2026-06-09 21:14:13
+6a288308d31c3af18fb2014a,Q97,"Why does the topmost band appear noisy when using SOC with HGH pseudopotential, and how can I get rid of it?",RAG,Down,LLM,Up,2026-06-09 21:18:00

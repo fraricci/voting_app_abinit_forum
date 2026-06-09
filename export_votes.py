@@ -30,7 +30,7 @@ def export_votes_to_csv():
     votes = list(votes_col.find())
     
     # Get questions sorted the same way as in analysis_app.py
-    questions = list(questions_col.find().sort("text", 1))
+    questions = list(questions_col.find().sort("_id", 1))
     q_map = {q["_id"]: f"Q{i+1}" for i, q in enumerate(questions)}
     
     rag_up = 0

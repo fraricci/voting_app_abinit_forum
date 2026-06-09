@@ -117,3 +117,16 @@ Vote ID,Question Index,Question,Answer 1 (Type),Vote 1,Answer 2 (Type),Vote 2,Ti
 6a285382d31c3af18fb20135,Q7,"Can I move directory ""16_hideleave"" to earlier in the build chain?",RAG,Down,LLM,Up,2026-06-09 17:55:14
 6a285436d31c3af18fb20136,Q64,"Is there any variable in ABINIT that can output the partial DOS of each atom (including all orbitals)? If not, can I calculate it based on angular‑momentum projected DOS through any code or software?",RAG,Up,LLM,Down,2026-06-09 17:58:14
 6a2854f7d31c3af18fb20137,Q35,How do I make the .ac9 file to work? what directory do I put it in? and how does ABINIT know where to look for it if I select a random name for it?,RAG,Up,LLM,Down,2026-06-09 18:01:27
+6a286722d31c3af18fb20138,Q35,How do I make the .ac9 file to work? what directory do I put it in? and how does ABINIT know where to look for it if I select a random name for it?,RAG,Up,LLM,Down,2026-06-09 19:18:58
+6a2867fdd31c3af18fb20139,Q74,Where can I find the details of the implementation of the spin‑orbit interaction in ABINIT?,LLM,Up,N/A,N/A,2026-06-09 19:22:37
+6a286904d31c3af18fb2013a,Q75,Where is the ABINIT tutorials folder located on a Ubuntu/Debian installation?,LLM,Up,N/A,N/A,2026-06-09 19:27:00
+6a286991d31c3af18fb2013b,Q97,"Why does the topmost band appear noisy when using SOC with HGH pseudopotential, and how can I get rid of it?",LLM,Up,N/A,N/A,2026-06-09 19:29:21
+6a2869fcd31c3af18fb2013c,Q69,What does this error mean: Wrong value for nkref: nkref= 64 nkbz= 3072 nkbzmx =6144,RAG,Down,N/A,N/A,2026-06-09 19:31:08
+6a286b28d31c3af18fb2013d,Q61,Is there a way to know this from the output files?,RAG,Up,LLM,Up,2026-06-09 19:36:08
+6a286beed31c3af18fb2013e,Q46,"I am trying to plot the density of states (DOS) of graphene with ABINIT. Theoretically the DOS should be zero at the Fermi level, but my plot shows zero values away from the Fermi energy. I have converged ecut and ngkpt and optimized the geometry. Should the k‑point grid contain high‑symmetry points of the Brillouin zone, and could that be causing the wrong result?",LLM,Up,N/A,N/A,2026-06-09 19:39:26
+6a286d3dd31c3af18fb2013f,Q12,"Could you tell us, how to fix this line?",RAG,Up,N/A,N/A,2026-06-09 19:45:01
+6a286d5ed31c3af18fb20140,Q78,"Why do I obtain different ground‑state results for CoO when running PAW+U with different spin settings (nsppol/nspden/nspinor), and how can I make the calculations converge to the same result?",LLM,Up,N/A,N/A,2026-06-09 19:45:34
+6a286dd7d31c3af18fb20141,Q41,"How to run a specific test of the test farm that is not numbered, e.g. [tutorespfn][trf2_3]?",RAG,Up,N/A,N/A,2026-06-09 19:47:35
+6a286e9cd31c3af18fb20142,Q53,"I tried to perform self-consistent GW (scgw) calculation using optdriver:8 under abinit-7.6.4 and got an error that optdriver:8 is not allowed. Is optdriver:8 disabled in 7.6.4, and if so, how can I still perform scgw in ABINIT?",RAG,Up,LLM,Up,2026-06-09 19:50:52
+6a286f20d31c3af18fb20143,Q81,"Why does ABINIT crash with nspinor=2 when using libxc with PAW datasets, and how can I fix it?",RAG,Up,LLM,Up,2026-06-09 19:53:04
+6a286fd4d31c3af18fb20144,Q12,"Could you tell us, how to fix this line?",RAG,Up,LLM,Up,2026-06-09 19:56:04
